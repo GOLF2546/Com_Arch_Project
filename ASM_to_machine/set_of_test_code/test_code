@@ -1,0 +1,8 @@
+add temp_reg temp_reg 
+nand temp_reg temp_reg 
+lw temp_reg temp_reg 
+sw temp_reg temp_reg
+beg temp_reg temp_reg temp_line
+jalr temp_reg temp_reg 
+halt 
+noop

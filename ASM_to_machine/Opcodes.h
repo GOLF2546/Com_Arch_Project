@@ -35,8 +35,12 @@ class Opcodes
             opcode["noop"] = "111";
         }
 
-    string get_opcode(string input)
+    string get_opcode(string key)
     {
-        return opcode[input];
+        if(opcode.find(key) == opcode.end())
+        {
+            throw SystaxErrorException();
+        }
+        else return opcode[key];
     }
 };

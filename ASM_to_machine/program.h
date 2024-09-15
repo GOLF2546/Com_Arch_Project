@@ -1,31 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
+#include "Custom_exception.h"
 #include "Opcodes.h"
-
-class SystaxErrorException : public exception
-{
-    private:
-        int line;
-        string message;
-        string for_print;
-
-    public:
-        SystaxErrorException(const char* msg, int line)
-        {
-            message = msg;
-            this->line = line;
-            for_print = "Expected : " + message +" at " + to_string(line) + "\n";
-        }
-
-        const char* what() const throw()
-        {
-            return for_print.c_str();
-        }
-};
 
 class Program
 {
@@ -82,12 +63,46 @@ class Program
 
                 while(getline(readfile, text))
                 {
-                    machine_code.push_back(generate_machine_code_II(text));
+                    machine_code.push_back(generate_machine_code_II(text, line));
+                    line += 1;
+                }
+
+                ofstream write("machine_code.txt");
+                for(string i: machine_code) write << i << endl;
+                write.close();
+            }
+
+            string generate_machine_code_II(string text, int line)
+            {
+                vector<string> instruction = split_with_space(text);
+                
+                try
+                {
+                    string opcode = opcode_program.get_opcode(instruction[0]);
+                    
+                    return opcode; //now opcode only
+                }
+                catch(SystaxErrorException e)
+                {
+                    throw SystaxErrorException(text, line);
                 }
             }
 
-            string generate_machine_code_II(string text)
+            /**
+             * split word with space
+             * @param code current line of code
+             */
+            vector<string> split_with_space(string code)
             {
-                throw SystaxErrorException("test", 1);
+                stringstream ss(code);
+                vector<string> for_return;
+                string  instruction;
+
+                while(ss >> instruction)
+                {
+                    for_return.push_back(instruction);
+                }
+
+                return for_return;
             }
 };
