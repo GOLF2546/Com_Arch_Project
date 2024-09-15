@@ -1,0 +1,8 @@
+add
+nand
+lw
+sw
+beg
+jalr
+halt
+noop
