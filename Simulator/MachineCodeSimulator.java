@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class MachineCodeSimulator {
@@ -12,6 +11,16 @@ public class MachineCodeSimulator {
         
         memory = new int[10];
         registers = new HashMap<>();
+        memory[0]=8454151;
+        memory[1]=9043971;
+        memory[2]=655361;
+        memory[3]=16842754;
+        memory[4]=16842749;
+        memory[5]=29360128;
+        memory[6]=25165824;
+        memory[7]=5;
+        memory[8]=-1;
+        memory[9]=2;
            
         //$0     value 0
         // $1      n input to function
@@ -80,14 +89,15 @@ public class MachineCodeSimulator {
     }
 
     public void run() {
-        // int i=0;
-        // while (true) {
+        //  int i=0;
+        // while (i<2) {
             String instruction = fetch();
-            System.out.println(instruction);
+            //System.out.println(instruction);
             decodeExecute(instruction);
         //     if (!decodeExecute(instruction)) {
         //         break;
-        //     }
+           // i++;
+        //}
             
         // }
         System.out.println("Program halted.");
@@ -98,9 +108,9 @@ public class MachineCodeSimulator {
     public static void main(String[] args) {
         List<String> machineCode = Arrays.asList(
             "0100000010000000000000111"
-            // ,// lw       0        1        five    
-            // "0100010100000000000000011",  //lw       1        2        3       
-            // "0000010100000000000000001",  //start  add     1        2        1 
+            ,// lw       0        1        five    
+            "0100010100000000000000011" , //lw       1        2        3       
+            "0000010100000000000000001"  //start  add     1        2        1 
             // "1000000010000000000000010",  //beq     0        1        2  
             // "1000000001111111111111101",  //beq     0        0        start
             // "1110000000000000000000000",  //noop
@@ -115,12 +125,16 @@ public class MachineCodeSimulator {
         sim.loadProgram(machineCode);
         sim.run();
         printState(sim);
+        sim.run();
+        printState(sim);
+        sim.run();
+        printState(sim);
     }
     private static void printState(MachineCodeSimulator state) {
         System.out.println("\n@@@\nstate:");
         System.out.printf("\tpc %d\n", state.pc);
         System.out.println("\tmemory:");
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 10; i++) {
             System.out.printf("\t\tmem[ %d ] %d\n", i, state.memory[i]);
         }
         System.out.println("\tregisters:");
