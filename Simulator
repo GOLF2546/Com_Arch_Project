@@ -1,1 +1,132 @@
 
+import java.util.*;
+
+public class MachineCodeSimulator {
+    private int[] memory;
+    private Map<String, Integer> registers;
+    private int pc;
+    private static final int NUMMEMORY = 65536;
+    private static final int NUMREGS = 8;
+    //initialize registers ทุกตัวและ set program counter เป็น 0 
+    public MachineCodeSimulator() {
+        
+        memory = new int[10];
+        registers = new HashMap<>();
+           
+        //$0     value 0
+        // $1      n input to function
+        // $2     r input to function
+        // $3     return value of function
+        // $4     local variable for function
+        // $5     stack pointer
+        // $6     temporary value (can hold different values at different times, e.g.
+        //         +1, -1, function address)
+        // $7 return address
+        registers.put("R0", 0); 
+        registers.put("R1", 0);
+        registers.put("R2", 0);
+        registers.put("R3", 0);
+        registers.put("R4", 0);
+        registers.put("R5", 0);
+        registers.put("R6", 0);
+        registers.put("R7", 0);
+        pc = 0;
+    }
+    //เปลี่ยน machinecode จากd ecimal เป็น binary แล้วเก็บใน memory[]
+    public void loadProgram(List<String> machineCode) {
+        for (int i = 0; i < machineCode.size(); i++) {
+            memory[i] = Integer.parseInt(machineCode.get(i), 2);
+        }
+    }
+    
+    private String fetch() {
+        int instruction = memory[pc];
+        pc++;
+        return String.format("%25s", Integer.toBinaryString(instruction)).replace(' ', '0');
+    }
+
+    private boolean decodeExecute(String instruction) {
+        String opcode = instruction.substring(0, 3);
+        switch (opcode) {
+            case "000": // ADD
+                
+                String rd = "R" + Integer.parseInt(instruction.substring(22, 25), 2);
+                String rs = "R" + Integer.parseInt(instruction.substring(3, 6), 2);
+                String rt = "R" + Integer.parseInt(instruction.substring(6,9), 2);
+                int rsValue = registers.getOrDefault(rs, 0);
+                int rtValue = registers.getOrDefault(rt, 0);
+                registers.put(rd, rsValue + rtValue);
+                
+            break;
+            case "001": // nand
+
+                break;
+            case "010": // LOAD
+                String rload = "R" + Integer.parseInt(instruction.substring(6, 9), 2);//r1
+                String raddress = "R" + Integer.parseInt(instruction.substring(3, 6), 2);//r0
+                int raddressValue = Integer.valueOf(registers.get(raddress));
+                int address =raddressValue + Integer.parseInt(instruction.substring(9,25), 2);
+                registers.put(rload, memory[address]);
+                break;
+            case "011": // STORE
+                rd = "R" + Integer.parseInt(instruction.substring(3, 5), 2);
+                address = Integer.parseInt(instruction.substring(5), 2);
+                int value = registers.getOrDefault(rd, 0);
+                memory[address] = value;
+                break;
+           
+        }
+        return true;
+    }
+
+    public void run() {
+        // int i=0;
+        // while (true) {
+            String instruction = fetch();
+            System.out.println(instruction);
+            decodeExecute(instruction);
+        //     if (!decodeExecute(instruction)) {
+        //         break;
+        //     }
+            
+        // }
+        System.out.println("Program halted.");
+        System.out.println("Final register states: " + registers);
+        System.out.println("Memory locations 0-10: " + Arrays.toString(Arrays.copyOfRange(memory, 0, 11)));
+    }
+
+    public static void main(String[] args) {
+        List<String> machineCode = Arrays.asList(
+            "0100000010000000000000111"
+            // ,// lw       0        1        five    
+            // "0100010100000000000000011",  //lw       1        2        3       
+            // "0000010100000000000000001",  //start  add     1        2        1 
+            // "1000000010000000000000010",  //beq     0        1        2  
+            // "1000000001111111111111101",  //beq     0        0        start
+            // "1110000000000000000000000",  //noop
+            // "1100000000000000000000000",  //done    halt    
+            // "0000000000000000000000101",  //five      .fill      5
+            // "1111111111111111111111111",  //neg1    .fill      -1
+            // "0000000000000000000000010"   // stAddr  .fill      start
+        );
+
+        MachineCodeSimulator sim = new MachineCodeSimulator();
+        printState(sim);
+        sim.loadProgram(machineCode);
+        sim.run();
+        printState(sim);
+    }
+    private static void printState(MachineCodeSimulator state) {
+        System.out.println("\n@@@\nstate:");
+        System.out.printf("\tpc %d\n", state.pc);
+        System.out.println("\tmemory:");
+        for (int i = 0; i < 7; i++) {
+            System.out.printf("\t\tmem[ %d ] %d\n", i, state.memory[i]);
+        }
+        System.out.println("\tregisters:");
+        for (int i = 0; i < NUMREGS; i++) {
+            System.out.printf("\t\treg[ %d ] %d\n", i, state.registers.get("R"+i));
+        }
+        System.out.println("end state");
+    }
+}
