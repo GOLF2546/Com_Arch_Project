@@ -6,6 +6,8 @@ public class MachineCodeSimulator {
     private int pc;
     private static final int NUMMEMORY = 65536;
     private static final int NUMREGS = 8;
+    private int total_instruction=0;
+    
     //initialize registers ทุกตัวและ set program counter เป็น 0 
     public MachineCodeSimulator() {
         
@@ -44,12 +46,16 @@ public class MachineCodeSimulator {
     //เปลี่ยน machinecode จากd ecimal เป็น binary แล้วเก็บใน memory[]
     public void loadProgram(List<String> machineCode) {
         for (int i = 0; i < machineCode.size(); i++) {
-            memory[i] = Integer.parseInt(machineCode.get(i), 2);
+            
+            //memory[i] = this.convertNum(Integer.parseInt(machineCode.get(i), 2));
+            memory[i] = Integer.parseInt(machineCode.get(i));
+            System.out.println(memory[i]);
         }
     }
     
     private String fetch() {
         int instruction = memory[pc];
+        total_instruction++;
         pc++;
         return String.format("%25s", Integer.toBinaryString(instruction)).replace(' ', '0');
     }
@@ -78,57 +84,66 @@ public class MachineCodeSimulator {
                 registers.put(rload, memory[address]);
                 break;
             case "011": // STORE
-                rd = "R" + Integer.parseInt(instruction.substring(3, 5), 2);
-                address = Integer.parseInt(instruction.substring(5), 2);
-                int value = registers.getOrDefault(rd, 0);
-                memory[address] = value;
+                String rstore = "R" + Integer.parseInt(instruction.substring(6, 9), 2);//r1
+                String rstoreaddress = "R" + Integer.parseInt(instruction.substring(3, 6), 2);//r0
+                int rstoreaddressValue = Integer.valueOf(registers.get(rstoreaddress));
+                int storeaddress =rstoreaddressValue + Integer.parseInt(instruction.substring(9,25), 2);
+                registers.put(rstore, memory[storeaddress]);
                 break;
+            case "110"://halt
+                
+                System.out.println("machine halted");
+                return false;
+                
+            case "111"://noop
+                break;
+            case "100"://beq
+                int offset;
+                String r2 = "R" + Integer.parseInt(instruction.substring(6, 9), 2);//r1
+                String r1 = "R" + Integer.parseInt(instruction.substring(3, 6), 2);//r0
+                int r2value = Integer.valueOf(registers.get(r2));
+                int r1value = Integer.valueOf(registers.get(r1));
+                offset=convertNum(Integer.parseInt(instruction.substring(9,25), 2));
+                if(r1value==r2value) pc=pc+offset;
+                break;
+            
            
         }
+        
         return true;
     }
 
     public void run() {
-        //  int i=0;
-        // while (i<2) {
+        
+         while (true) {
             String instruction = fetch();
-            //System.out.println(instruction);
-            decodeExecute(instruction);
-        //     if (!decodeExecute(instruction)) {
-        //         break;
-           // i++;
-        //}
-            
-        // }
-        System.out.println("Program halted.");
-        System.out.println("Final register states: " + registers);
-        System.out.println("Memory locations 0-10: " + Arrays.toString(Arrays.copyOfRange(memory, 0, 11)));
+            if (!decodeExecute(instruction)){
+                System.out.println("hello");
+                break;
+            }
+            printState(this); 
+            System.out.println(pc);
+         }
+        
+        //  System.out.println(decodeExecute("1100000000000000000000000"));
+        //  printState(this);
+        //System.out.println("Final register states: " + registers);
+        System.out.println("total of "+ total_instruction +" instructions executed");
+        //System.out.println("Memory locations 0-10: " + Arrays.toString(Arrays.copyOfRange(memory, 0, 11)));
+        System.out.println("final state of machine:");
     }
 
     public static void main(String[] args) {
         List<String> machineCode = Arrays.asList(
-            "0100000010000000000000111"
-            ,// lw       0        1        five    
-            "0100010100000000000000011" , //lw       1        2        3       
-            "0000010100000000000000001"  //start  add     1        2        1 
-            // "1000000010000000000000010",  //beq     0        1        2  
-            // "1000000001111111111111101",  //beq     0        0        start
-            // "1110000000000000000000000",  //noop
-            // "1100000000000000000000000",  //done    halt    
-            // "0000000000000000000000101",  //five      .fill      5
-            // "1111111111111111111111111",  //neg1    .fill      -1
-            // "0000000000000000000000010"   // stAddr  .fill      start
-        );
+            "8454151","9043971","655361","16842754","16842749"
+            ,"29360128","25165824","5","-1","2");
 
         MachineCodeSimulator sim = new MachineCodeSimulator();
         printState(sim);
         sim.loadProgram(machineCode);
-        sim.run();
-        printState(sim);
-        sim.run();
-        printState(sim);
-        sim.run();
-        printState(sim);
+       sim.run();
+       printState(sim);
+        
     }
     private static void printState(MachineCodeSimulator state) {
         System.out.println("\n@@@\nstate:");
@@ -141,6 +156,15 @@ public class MachineCodeSimulator {
         for (int i = 0; i < NUMREGS; i++) {
             System.out.printf("\t\treg[ %d ] %d\n", i, state.registers.get("R"+i));
         }
-        System.out.println("end state");
+        
+        System.out.println("end state"+state.pc);
+    }
+    public int convertNum(int num) {//num decimal
+        /* แปลงจำนวน 16 บิตเป็น 32 บิตแบบ signed */
+        if ((num & (1 << 15)) != 0) {
+            // ถ้าบิตที่ 16 (bit ที่ตำแหน่ง 15) เป็น 1 (เลขลบใน signed 16-bit)
+            num -= (1 << 16); // หักค่า 2^16 เพื่อแปลงเป็นค่าลบที่ถูกต้อง
+        }
+        return num;
     }
 }
