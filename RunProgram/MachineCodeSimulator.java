@@ -140,7 +140,7 @@ public class MachineCodeSimulator {
     public void run() {
         
          while (true) {
-            // printState(this); 
+            printState(this); 
 
             String instruction = fetch();
 
@@ -154,7 +154,7 @@ public class MachineCodeSimulator {
          }
         
         //  System.out.println(decodeExecute("1100000000000000000000000"));
-         printState(this);
+        //  printState(this);
         //System.out.println("Final register states: " + registers);
         System.out.println("total of "+ total_instruction +" instructions executed");
         //System.out.println("Memory locations 0-10: " + Arrays.toString(Arrays.copyOfRange(memory, 0, 11)));
