@@ -161,8 +161,20 @@ public class MachineCodeSimulator {
         System.out.println("final state of machine:");
     }
 
+
+   
+    public static void runSimulate(List<String> input) {  //use this function to use everything
+        BinaryStringToDecimal(input);
+        MachineCodeSimulator sim = new MachineCodeSimulator();
+        sim.loadProgram(input);
+        sim.run();
+        printState(sim); 
+    }
+
     public static void main(String[] args) {
         
+        
+
         List<String> machineCode = Arrays.asList(
             "8454151","9043971","655361","16842754","16842749"
             ,"29360128","25165824","5","-1","2");
@@ -205,5 +217,15 @@ public class MachineCodeSimulator {
         // Perform bitwise AND, then NOT (~ inverts all bits)
         return ~(input1 & input2);
     }
+
+   
+    
+    public static void BinaryStringToDecimal(List<String> inputArray) { 
+            for(int i = 0; i < inputArray.size(); i++){
+                int decimal = Integer.parseInt(inputArray.get(i), 2);
+                inputArray.set(i,String.valueOf(decimal) );
+            }    
+    }
+    
 
 }
