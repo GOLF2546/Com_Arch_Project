@@ -43,13 +43,13 @@ public class MachineCodeSimulator {
         registers.put("R7", 0);
         pc = 0;
     }
-    //เปลี่ยน machinecode จากd ecimal เป็น binary แล้วเก็บใน memory[]
+    //machinecode เก็บใน memory[]
     public void loadProgram(List<String> machineCode) {
         for (int i = 0; i < machineCode.size(); i++) {
             
             //memory[i] = this.convertNum(Integer.parseInt(machineCode.get(i), 2));
             memory[i] = Integer.parseInt(machineCode.get(i));
-            System.out.println(memory[i]);
+            //System.out.println(memory[i]);
         }
     }
     
@@ -140,13 +140,17 @@ public class MachineCodeSimulator {
     public void run() {
         
          while (true) {
+            printState(this); 
+
             String instruction = fetch();
+
+
             if (!decodeExecute(instruction)){
-                System.out.println("Finsihed");
+                //System.out.println("Finsihed");
                 break;
             }
-            printState(this); 
-            System.out.println(pc);
+            
+            //System.out.println(pc);
          }
         
         //  System.out.println(decodeExecute("1100000000000000000000000"));
@@ -163,7 +167,7 @@ public class MachineCodeSimulator {
             ,"29360128","25165824","5","-1","2");
 
         MachineCodeSimulator sim = new MachineCodeSimulator();
-        printState(sim);
+       // printState(sim);
         sim.loadProgram(machineCode);
        sim.run();
        printState(sim);
@@ -185,7 +189,7 @@ public class MachineCodeSimulator {
             System.out.printf("\t\treg[ %d ] %d\n", i, state.registers.get("R"+i));
         }
         
-        System.out.println("end state"+state.pc);
+        System.out.println("end state"); //+state.pc
     }
     public int convertNum(int num) {//num decimal
         /* แปลงจำนวน 16 บิตเป็น 32 บิตแบบ signed */
