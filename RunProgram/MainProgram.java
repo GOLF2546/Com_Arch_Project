@@ -8,8 +8,7 @@ public class MainProgram{
 
         Code_containtner.first_time();
 
-        File file = new File("D:\\Comarch_Pj\\Com_Arch_Project-1\\RunProgram\\test.txt");
-
+    File file = new File("D:\\Com_Arch_Project\\RunProgram\\test3.txt");
         try
         {
             Scanner read_file = new Scanner(file);

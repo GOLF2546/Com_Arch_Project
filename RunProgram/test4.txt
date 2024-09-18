@@ -7,8 +7,8 @@ Loop    beq     4       2       End             # ถ้าตัวนับ re
         add     5       4       4               # เพิ่มค่าตัวนับ reg4 ขึ้นทีละ 1 (**กล่าวคือ reg4 += 1) 
         beq     0       0       Loop        # loopAddr กลับไปที่ Loop (ถ้า 0 = 0 กลับไปที่ loop)
 End     halt              # จบโปรแกรม.
-mcand   .fill   2         #สร้างตัวแปร mcand ที่ทีค่า = 2 ซึ่ง 2 เป็น input ตัวแรก
-mplier  .fill   2         #สร้างตัวแปร mplier ที่ทีค่า = 2 ซึ่ง 2 เป็น input ตัวสอง
+mcand   .fill   5         #สร้างตัวแปร mcand ที่ทีค่า = 2 ซึ่ง 2 เป็น input ตัวแรก
+mplier  .fill   7         #สร้างตัวแปร mplier ที่ทีค่า = 2 ซึ่ง 2 เป็น input ตัวสอง
 zero    .fill   0         #สร้างตัวแปร zero ที่ทีค่า = 0
 one     .fill   1         #สร้างตัวแปร zero ที่ทีค่า = 1
 loopAddr .fill Loop       #สร้างตัวแปร loopAddr เป็น Loop เผื่อมีการแรกใช้ซ้ำ
