@@ -109,7 +109,6 @@ public class MachineCodeSimulator {
                 int r2value = Integer.valueOf(registers.get(r2));
                 int r1value = Integer.valueOf(registers.get(r1));
                 offset=convertNum(Integer.parseInt(instruction.substring(9,25), 2));
-                System.out.println(r1value+" "+r2value+" "+offset);
                 if(r1value==r2value) pc=pc+offset;
                 break;
             case "101": //jalr (เก็บค่า PC+1 ไว้ใน regB ซึ่ง PC คือ address ของ jalr instruction และกระโดดไปที่ address ที่ถูกเก็บไว้ใน regA แต่ถ้า regA และ regB คือ register ตัวเดียวกัน ให้เก็บ PC+1 ก่อน และค่อยกระโดดไปที่ PC+1)

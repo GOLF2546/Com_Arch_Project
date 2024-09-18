@@ -88,4 +88,3 @@ public class I_type
         System.out.println(btod("1111111111111101"));
     }
 }
-

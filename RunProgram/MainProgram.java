@@ -8,7 +8,7 @@ public class MainProgram{
 
         Code_containtner.first_time();
 
-    File file = new File("D:\\Com_Arch_Project\\RunProgram\\test3.txt");
+    File file = new File("D:\\Com_Arch_Project\\RunProgram\\test4.txt");
         try
         {
             Scanner read_file = new Scanner(file);
@@ -28,41 +28,9 @@ public class MainProgram{
 
         List<String> machineCode = Code_containtner.get_this();
         MachineCodeSimulator.runSimulate(machineCode);
-
-
-
-        // List<String> inputArray = Code_containtner.get_this();
-        // BinaryStringToDecimal(inputArray);
-        // for(int i = 0; i < inputArray.size(); i++){
-        //     System.out.println(inputArray.get(i));
-        // }
-
         
     }
 
-//     public static void BinaryStringToDecimal(List<String> inputArray) { 
-//         for(int i = 0; i < inputArray.size(); i++){
-            
-//             inputArray.set(i, binaryToDecimal(inputArray.get(i)));
-//         }    
-// }
-
-// public static String binaryToDecimal(String binaryStr)
-// {
-//         if (binaryStr.length() != 32) {
-//             throw new IllegalArgumentException("Binary string must be exactly 32 bits long");
-//         }
-//         if (binaryStr.charAt(0) == '1') {
-//             long unsignedValue = Long.parseUnsignedLong(binaryStr, 2);
-//             int signedValue = (int)(unsignedValue & 0xFFFFFFFF);
-//             return Integer.toString(signedValue);
-//         } else {
-//             // For positive numbers, directly convert to hexadecimal
-//             long decimalValue = Long.parseLong(binaryStr, 2);
-//             return Long.toString(decimalValue);
-//         }
-   
-// }
 
 
 }
