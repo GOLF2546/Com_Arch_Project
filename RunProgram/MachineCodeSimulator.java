@@ -116,11 +116,11 @@ public class MachineCodeSimulator {
             rd = "R" + Integer.parseInt(instruction.substring(6, 9), 2); //Bits 18-16 reg B (rd)
             if(!rd.equals(rd)){
                 int regAvalue = Integer.valueOf(registers.get(rs));
-            registers.put(rd, pc+1); //เก็บค่า PC+1 ไว้ใน regB +1/+0
+            registers.put(rd, pc); //เก็บค่า PC+1 ไว้ใน regB +1/+0
             pc=regAvalue; 
             }else{
-                registers.put(rd, pc+1); //เก็บค่า PC+1 ไว้ใน regB
-                pc=pc+1; // +1 / +0
+                registers.put(rd, pc); //เก็บค่า PC+1 ไว้ใน regB
+                //pc=pc+1; // +1 / +0
             }
             
             
@@ -140,7 +140,7 @@ public class MachineCodeSimulator {
     public void run() {
         
          while (true) {
-            printState(this); 
+            // printState(this); 
 
             String instruction = fetch();
 
@@ -154,11 +154,13 @@ public class MachineCodeSimulator {
          }
         
         //  System.out.println(decodeExecute("1100000000000000000000000"));
-        //  printState(this);
+         printState(this);
         //System.out.println("Final register states: " + registers);
         System.out.println("total of "+ total_instruction +" instructions executed");
         //System.out.println("Memory locations 0-10: " + Arrays.toString(Arrays.copyOfRange(memory, 0, 11)));
         System.out.println("final state of machine:");
+        System.out.println(registers.get("R3"));
+
     }
 
 

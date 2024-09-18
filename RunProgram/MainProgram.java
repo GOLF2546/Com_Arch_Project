@@ -8,7 +8,7 @@ public class MainProgram{
 
         Code_containtner.first_time();
 
-        File file = new File("D:\\Comarch_Pj\\Com_Arch_Project-1\\RunProgram\\test_code.txt");
+        File file = new File("D:\\Comarch_Pj\\Com_Arch_Project-1\\RunProgram\\test4.txt");
 
         try
         {
@@ -25,10 +25,10 @@ public class MainProgram{
             throw new CustomException.FileNotFoundException();
         }
 
-        Code_containtner.print();
+        Code_containtner.print_hex();
 
-        List<String> machineCode = Code_containtner.get_this();
-        MachineCodeSimulator.runSimulate(machineCode);
+        // List<String> machineCode = Code_containtner.get_this();
+        // MachineCodeSimulator.runSimulate(machineCode);
 
         // List<String> inputArray = Code_containtner.get_this();
         // BinaryStringToDecimal(inputArray);

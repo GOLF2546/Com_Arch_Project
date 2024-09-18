@@ -72,6 +72,7 @@ public class InstructionLine
                 case "beq": I_type.gen_machine_code(parts);
                     break;
                 case "jalr": J_type.gen_machine_code(parts);
+                            System.out.println("JALR JAh"); 
                     break;
                 case "halt": O_type.gen_machine_code(parts);
                     break;

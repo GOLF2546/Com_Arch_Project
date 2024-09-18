@@ -26,12 +26,27 @@ public class Code_containtner
 
     public static void print()
     {
-        for(String i: m_code) System.out.println(i);
+        for(int i = 0; i < m_code.size(); i++)
+        {
+            System.out.println(i+1 + " " + m_code.get(i));
+        }
+    }
+
+    public static void printbit22to24()
+    {
+        for(int i = 0; i < m_code.size(); i++)
+        {
+            System.out.println(i+1 + " " + m_code.get(i).substring(7, 10));
+        }
+        
     }
 
     public static void print_hex()
     {
-        for(String i: m_code) System.out.println(binaryToHex(i));
+        for(int i = 0; i < m_code.size(); i++)
+        {
+            System.out.println(i+1 + " " +binaryToHex(m_code.get(i)));
+        }
     }
 
     // private static String binaryToHexString(String binary) {
