@@ -36,9 +36,9 @@ return1 ld  0   6   one     $6 = 1
         add 5   6   5       decrement  stack pointer
         jalr    7   4       $4 = pc+1   jump to $7
 done    halt
-        comAdr  .fill   comb
-        inputn  .fill   7
-        inputr  .fill   3
-        one     .fill   1
-        minus   .fill   -1
-        stack   .fill   0
+comAdr  .fill   comb
+inputn  .fill   7
+inputr  .fill   3
+one     .fill   1
+minus   .fill   -1
+stack   .fill   0
