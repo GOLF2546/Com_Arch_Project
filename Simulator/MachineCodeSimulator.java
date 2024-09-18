@@ -65,6 +65,7 @@ public class MachineCodeSimulator {
         String rs;
         String rd;
         String rt;
+        int regBValue;
         switch (opcode) {
             case "000": // ADD
                 rd = "R" + Integer.parseInt(instruction.substring(22, 25), 2);
@@ -81,7 +82,7 @@ public class MachineCodeSimulator {
                 rd = "R" + Integer.parseInt(instruction.substring(22, 25), 2); //Bits 2-0  destReg (rd)
               
                 int regAValue = registers.getOrDefault(rs , 0);
-                int regBValue = registers.getOrDefault(rt, 0);
+                regBValue = registers.getOrDefault(rt, 0);
                 registers.put(rd,nand(regAValue, regBValue) & 0xFFFFFFFF);
 
                 break;
@@ -92,12 +93,14 @@ public class MachineCodeSimulator {
                 int address =raddressValue + Integer.parseInt(instruction.substring(9,25), 2);
                 registers.put(rload, memory[address]);
                 break;
-            case "011": // STORE
-                String rstore = "R" + Integer.parseInt(instruction.substring(6, 9), 2);//r1
-                String rstoreaddress = "R" + Integer.parseInt(instruction.substring(3, 6), 2);//r0
+            case "011": // STORE (Store regB ใน memory และ memory address หาได้จากการเอา offsetField บวกกับค่าใน regA)
+                String rstore = "R" + Integer.parseInt(instruction.substring(6, 9), 2);//r1  Bits 18-16 reg B (rt) 
+                String rstoreaddress = "R" + Integer.parseInt(instruction.substring(3, 6), 2);//r0  Bits 21-19 reg A (rs)
                 int rstoreaddressValue = Integer.valueOf(registers.get(rstoreaddress));
+                regBValue = Integer.valueOf(registers.get(rstore));
                 int storeaddress =rstoreaddressValue + Integer.parseInt(instruction.substring(9,25), 2);
-                registers.put(rstore, memory[storeaddress]);
+                //registers.put(rstore, memory[storeaddress]);
+                memory[storeaddress]=regBValue;
                 break;
             case "100"://beq (ถ้า ค่าใน regA เท่ากับค่าใน regB ให้กระโดดไปที่ address PC+1+offsetField ซึ่ง PC คือ address ของ beq instruction)
                 int offset;
