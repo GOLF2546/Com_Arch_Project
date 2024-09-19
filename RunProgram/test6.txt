@@ -1,0 +1,23 @@
+        lw      0       5       mcand   $1 = 0
+        lw      0       2       mplir   $2 = 0
+        lw      0       4       one     $1 = 1
+        lw      0       1       zero
+        lw      0       6       one
+        lw      0       7       end
+loop    beq     4       7       done        
+        nand    2       4       3
+        nand    3       3       3
+        beq     0       3       skip
+        add     5       1       1
+        add     5       5       5
+        add     4       4       4
+        beq     0       0       loop        
+skip    add     5       5       5
+        add     4       4       4
+        beq     0       0       loop
+done    halt
+zero     .fill   0
+end      .fill   32768
+one      .fill   1
+mcand    .fill   32766
+mplir    .fill   10383
