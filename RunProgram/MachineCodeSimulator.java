@@ -114,16 +114,16 @@ public class MachineCodeSimulator {
             case "101": //jalr (เก็บค่า PC+1 ไว้ใน regB ซึ่ง PC คือ address ของ jalr instruction และกระโดดไปที่ address ที่ถูกเก็บไว้ใน regA แต่ถ้า regA และ regB คือ register ตัวเดียวกัน ให้เก็บ PC+1 ก่อน และค่อยกระโดดไปที่ PC+1)
             rs = "R" + Integer.parseInt(instruction.substring(3, 6), 2); //Bits 21-19 reg A (rs)
             rd = "R" + Integer.parseInt(instruction.substring(6, 9), 2); //Bits 18-16 reg B (rd)
-            if(!rd.equals(rd)){
-                int regAvalue = Integer.valueOf(registers.get(rs));
-            registers.put(rd, pc); //เก็บค่า PC+1 ไว้ใน regB +1/+0
-            pc=regAvalue; 
-            }else{
-                registers.put(rd, pc); //เก็บค่า PC+1 ไว้ใน regB
-                //pc=pc+1; // +1 / +0
-            }
-            
-            
+                if(!rd.equals(rd)){
+                    int regAvalue = Integer.valueOf(registers.get(rs));
+                    registers.put(rd, pc); //เก็บค่า PC+1 ไว้ใน regB +1/+0
+                    pc=regAvalue; 
+                }else{
+                    int regAvalue = Integer.valueOf(registers.get(rs));
+                    registers.put(rd, pc); //เก็บค่า PC+1 ไว้ใน regB
+                    pc = regAvalue;
+                    //pc=pc+1; // +1 / +0
+                }
                 break;
             case "110"://halt
                 
