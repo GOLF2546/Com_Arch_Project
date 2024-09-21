@@ -20,4 +20,4 @@ zero     .fill   0                      zero
 end      .fill   32768                  value of 1000000000000000 in decimal
 one      .fill   1                      1
 mcand    .fill   32766                  multiplicand
-mplier    .fill   10383                  multiplier
+mplier    .fill   10383                 multiplier
