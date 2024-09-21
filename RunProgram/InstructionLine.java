@@ -75,12 +75,19 @@ public class InstructionLine
             String[] parts = instruct.split("\\s+");
             if(parts.length > 1){
                 if(parts[1].equals(".fill")){
+
+                //add exception
+                if(labelValue.get(parts[0]) != null) throw new CustomException.LabelAlreadyExitException(labelValue.get(parts[0]));
+
                 labelValue.put(parts[0], parts[2]);
             }
             if (!parts[0].equals(""))
             {
+                //add exception
+                if(parts[0].length() > 6) throw new CustomException.LabelLenghtMoreThan6Exception(parts[0]);
+                if(labelAddress.get(parts[0]) != null) throw new CustomException.LabelAlreadyExitException(parts[0]);
+
                 labelAddress.put(parts[0], String.valueOf(i));
-                
             }
             }
             
@@ -110,7 +117,8 @@ public class InstructionLine
                 case ".fill": Fill_Type.gen_machine_code(parts);
                     break;
                 default:
-                    break;
+                    //add Exception
+                    throw new CustomException.SyntaxErrorException(parts[1], p.getSecond(), "Instuction not recognize");
             }
             
         }

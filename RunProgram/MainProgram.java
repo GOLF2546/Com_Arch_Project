@@ -10,7 +10,7 @@ public class MainProgram{
 
         Code_containtner.first_time();
 
-    File file = new File("D:\\Com_Arch_Project\\RunProgram\\test6.txt");
+    File file = new File("RunProgram/test1.txt");
         try
         {
             Scanner read_file = new Scanner(file);

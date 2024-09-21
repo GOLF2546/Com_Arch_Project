@@ -71,10 +71,20 @@ public class I_type
             {
                 int current = Code_containtner.current_line()+1;
                 String go_back = get_lavel_address.get(code[4]);
+
+                //add exception
+                if(go_back == null) throw new CustomException.LabelNotRegconizeException(code[4]);
+
                 current = Integer.parseInt(go_back) - current;
                 temp2 = Integer.toString(current);
             }
-            else temp2 = get_lavel_address.get(code[4]);
+            else
+            { 
+                temp2 = get_lavel_address.get(code[4]);
+                
+                //add exception
+                if(temp2 == null) throw new CustomException.LabelNotRegconizeException(code[4]);
+            }
         }
 
         String opcode = opcodes.get(code[1]);

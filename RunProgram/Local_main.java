@@ -10,7 +10,7 @@ public class Local_main
     {
         Code_containtner.first_time();
 
-        File file = new File("test_code");
+        File file = new File("RunProgram/test1.txt");
 
         try
         {
