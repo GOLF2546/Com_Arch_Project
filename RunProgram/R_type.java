@@ -1,11 +1,18 @@
 import java.util.HashMap;
 
+//class for generate machine code for R type instruction
 public class R_type 
 {
+    //machine code of R type instruction since bit 3 to 15
     private static String bit3to15 = "0000000000000";
 
+    //hashmap to store the opcode of R type instruction
     private static HashMap<String, String> opcodes = new HashMap<>();
 
+    /**
+     * Generate machine code for the R type instruction.
+     * @param code assembly code that is add or nand
+     */
     public static void gen_machine_code(String[] code)
     {
         if(opcodes.isEmpty()) 

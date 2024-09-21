@@ -2,8 +2,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+//class for test part 1 that generate machine code for the assembly code
 public class Local_main 
 {
+    //main function that run for the test
     public static void main(String[] args) 
     {
         Code_containtner.first_time();

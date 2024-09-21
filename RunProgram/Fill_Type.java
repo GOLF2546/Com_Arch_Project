@@ -1,7 +1,13 @@
 import java.util.HashMap;
 
+//class for generate machine code for .fill instruction
 public class Fill_Type 
 {
+    /**
+     * Convert a decimal string to a signed 32-bit binary string.
+     * @param decimalString decimal string
+     * @return signed 32-bit binary string
+     */
     public static String decimalToSignedBinary32(String decimalString) {
         int number = Integer.parseInt(decimalString);
         String binaryString = Integer.toBinaryString(number);
@@ -11,6 +17,10 @@ public class Fill_Type
         return binaryString;
     }
 
+    /**
+     * Generate machine code for the .fill instruction.
+     * @param code assembly code
+     */
     public static void gen_machine_code(String[] code)
     {
         try

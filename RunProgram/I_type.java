@@ -1,7 +1,9 @@
 import java.util.HashMap;
 
+//class for generate machine code for I type instruction
 public class I_type 
 {
+    //hashmap to store the opcode of I type instruction
     private static HashMap<String, String> opcodes = new HashMap<>();
 
     /**
@@ -42,7 +44,10 @@ public class I_type
         return Integer.toString(number);
     }
    
-
+    /**
+     * Generate machine code for the I type instruction.
+     * @param code assembly code that is lw, sw, beq
+     */
     public static void gen_machine_code(String[] code)
     {
         if(opcodes.isEmpty()) 
@@ -84,7 +89,4 @@ public class I_type
         Code_containtner.add_machine_code(machine_code);
     }
 
-    public static void main(String[] args) {
-        System.out.println(btod("1111111111111101"));
-    }
 }

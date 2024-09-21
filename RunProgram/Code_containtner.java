@@ -1,29 +1,49 @@
 import java.util.LinkedList;
 
+//class to store the assembly code that to be converted
 public class Code_containtner 
 {
+    //linked list to store the machine code
     private static LinkedList<String> m_code;
 
+      /**
+     * Get the machine code list
+     * @return list of machine code
+     */
     public static LinkedList<String> get_this()
     {
         return m_code;
     }
 
+    /**
+     * Get the current line number of the code
+     * @return current line number
+     */ 
     public static int current_line()
     {
         return m_code.size();
     }
 
+    /**
+     * Initialize the machine code list first time when the program is run
+     */
     public static void first_time()
     {
         m_code = new LinkedList<>();
     }
 
+    /**
+     * Add the machine code to the list
+     * @param input machine code
+     */
     public static void add_machine_code(String input)
     {
         m_code.add(input);
     }
 
+    /**
+     * Print the machine code binary string
+     */
     public static void print()
     {
         for(int i = 0; i < m_code.size(); i++)
@@ -32,6 +52,9 @@ public class Code_containtner
         }
     }
 
+    /**
+     * Print the opcode binary string from 22 to 24 bit
+     */
     public static void printbit22to24()
     {
         for(int i = 0; i < m_code.size(); i++)
@@ -41,6 +64,9 @@ public class Code_containtner
         
     }
 
+    /**
+     * Print the machine code in hexadecimal format
+     */
     public static void print_hex()
     {
         for(int i = 0; i < m_code.size(); i++)
@@ -49,10 +75,11 @@ public class Code_containtner
         }
     }
 
-    // private static String binaryToHexString(String binary) {
-    //     int decimal = Integer.parseInt(binary, 2);
-    //     return Integer.toHexString(decimal).toUpperCase();
-    // }
+      /**
+     * Convert a 32-bit signedbinary string to a hexadecimal string.
+     * @param String binaryStr
+     * @return String of two complement to hex string
+     */
      public static String binaryToHex(String binaryStr) {
         // Ensure the binary string is exactly 32 bits long
         if (binaryStr.length() != 32) {
