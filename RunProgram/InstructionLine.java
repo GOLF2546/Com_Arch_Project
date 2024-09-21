@@ -58,6 +58,7 @@ public class InstructionLine
             }
         for (Pair<String, Integer> p : code)
         {
+            
             String instruct = p.getFirst();
             String[] parts = instruct.split("\\s+");
             switch (parts[1]) {
