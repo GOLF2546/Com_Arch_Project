@@ -1,5 +1,5 @@
         lw      0       5       mcand   $5 = multiplicand value
-        lw      0       2       mplir   $2 = multiplier value
+        lw      0       2       mplier   $2 = multiplier value
         lw      0       4       one     $4 = ค่าของบิทที่จะเป็น 1 ในตำแหน่งที่ต้องการ
         lw      0       1       zero    $1 = 0 (prepare register 1 to be the result)
         lw      0       6       one     $6 = 1
@@ -20,4 +20,4 @@ zero     .fill   0                      zero
 end      .fill   32768                  value of 1000000000000000 in decimal
 one      .fill   1                      1
 mcand    .fill   32766                  multiplicand
-mplir    .fill   10383                  multiplier
+mplier    .fill   10383                  multiplier
