@@ -140,7 +140,7 @@ public class MachineCodeSimulator {
     public void run() {
         
          while (true) {
-            // printState(this); 
+            printState(this); 
 
             String instruction = fetch();
 

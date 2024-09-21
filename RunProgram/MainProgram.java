@@ -2,13 +2,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+//class that combine every part of the program and run the program for showing the result of Memory and Register in every cycle
 public class MainProgram{
 
+    //main function that run the program
     public static void main(String[] args) {
 
         Code_containtner.first_time();
 
-    File file = new File("D:\\Com_Arch_Project\\RunProgram\\test3.txt");
+    File file = new File("D:\\Com_Arch_Project\\RunProgram\\test6.txt");
         try
         {
             Scanner read_file = new Scanner(file);
@@ -23,8 +25,6 @@ public class MainProgram{
         {
             throw new CustomException.FileNotFoundException();
         }
-
-        Code_containtner.print_hex();
 
         List<String> machineCode = Code_containtner.get_this();
         MachineCodeSimulator.runSimulate(machineCode);
