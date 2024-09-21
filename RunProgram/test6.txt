@@ -1,23 +1,23 @@
-        lw      0       5       mcand   $1 = 0
-        lw      0       2       mplir   $2 = 0
-        lw      0       4       one     $1 = 1
-        lw      0       1       zero
-        lw      0       6       one
-        lw      0       7       end
-loop    beq     4       7       done        
-        nand    2       4       3
-        nand    3       3       3
-        beq     0       3       skip
-        add     5       1       1
-        add     5       5       5
-        add     4       4       4
-        beq     0       0       loop        
-skip    add     5       5       5
-        add     4       4       4
-        beq     0       0       loop
-done    halt
-zero     .fill   0
-end      .fill   32768
-one      .fill   1
-mcand    .fill   32766
-mplir    .fill   10383
+        lw      0       5       mcand   $5 = multiplicand value
+        lw      0       2       mplir   $2 = multiplier value
+        lw      0       4       one     $4 = ค่าของบิทที่จะเป็น 1 ในตำแหน่งที่ต้องการ
+        lw      0       1       zero    $1 = 0 (prepare register 1 to be the result)
+        lw      0       6       one     $6 = 1
+        lw      0       7       end     $7 = 32768 is a 1000000000000000 in decimal
+loop    beq     4       7       done    if register 4 value = register 7 value go to done line
+        nand    2       4       3       nand multiplicand with prepare register 4
+        nand    3       3       3       nand กับตัวเองเพื่อให้ได้ผลลัพธ์ของ and เพื่อนำไปใช้ในการ check ค่า แต่ละ bit
+        beq     0       3       skip    ค่าของแต่ละ bit ที่ได้หากได้ 0 ให้กระโดดไปที่ skip line
+        add     5       1       1       บวกค่า multiplicand ไปใน register ผลลัพธ์ เมื่อ bit นั้นเป็น 1
+        add     5       5       5       shift left multiplicand by adding it self
+        add     4       4       4       shift left ค่าของ bit ใน register 4 เพื่อใช้ใน loop รอบถัดไป
+        beq     0       0       loop    if 0 = 0 go to loop line
+skip    add     5       5       5       shift left multiplicand by adding it self
+        add     4       4       4       shift left ค่าของ bit ใน register 4 เพื่อใช้ใน loop รอบถัดไป
+        beq     0       0       loop    if 0 = 0 go to loop line
+done    halt                            stop program
+zero     .fill   0                      zero
+end      .fill   32768                  value of 1000000000000000 in decimal
+one      .fill   1                      1
+mcand    .fill   32766                  multiplicand
+mplir    .fill   10383                  multiplier

@@ -1,7 +1,7 @@
         lw      0       1       inputn  $1 = 7
         lw      0       2       inputr  $2 = 3
         lw      0       4       comAdr  $4 = comb prepare to call comb 
-        lw      0       7       doneAdr    $7 = done prepare to call done
+        lw      0       7       doneAdr $7 = done prepare to call done
 comb    lw      0       6       one     $6 = 1
         sw      5       1       stack   store n in stack
         add     5       6       5       increment stack pointer
@@ -16,26 +16,26 @@ comb    lw      0       6       one     $6 = 1
         jalr    4       7               jump to comb
         add     0       6       7       $7 = $6
         lw      0       6       minus   $6 = -1
-        add     5       6       5
-        lw      5       7       stack   
-        add     5       6       5
-        lw      5       2       stack
-        add     5       6       5
-        lw      5       1       stack
+        add     5       6       5       decrement stack pointer
+        lw      5       7       stack   recover stack (return address)
+        add     5       6       5       decrement stack pointer
+        lw      5       2       stack   recover stack return value of r from stack
+        add     5       6       5       decrement stack pointer
+        lw      5       1       stack   recover stack return value of n from stack
         add     1       6       1       n = n - 1
         add     2       6       2       r = r - 1
-        jalr    4       6  
+        jalr    4       6               jump to comb
 return1 lw      0       6       one     $6 = 1
         add     3       6       3       increment $3 by 1 $3 = $3 + 1
         lw      0       6       minus   $6 = -1
         add     5       6       5       decrement stack pointer
-        lw      5       7       stack   recover stack return address
+        lw      5       7       stack   recover stack (return address)
         add     5       6       5       decrement stack pointer
-        lw      5       2       stack   recover stack return r value from stack
+        lw      5       2       stack   recover stack return value of r from stack
         add     5       6       5       decrement  stack pointer
-        lw      5       1       stack   recover stack return n value from stack
+        lw      5       1       stack   recover stack return value of n from stack
         jalr    7       6               $4 = pc+1   jump to $7
-done    halt
+done    halt                            stop program
 comAdr  .fill   comb
 doneAdr .fill   done
 inputn  .fill   7
