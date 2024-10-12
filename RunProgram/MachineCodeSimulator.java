@@ -1,5 +1,4 @@
 import java.util.*;
-
 public class MachineCodeSimulator {
     private int[] memory; //memory เอาไว้เก็บ instruction
     private Map<String, Integer> registers; //เก็บ instruction
