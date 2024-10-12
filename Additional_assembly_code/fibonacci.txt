@@ -1,0 +1,21 @@
+       lw     0 2 input    # load x2 = 0 + n and 
+       beq    0 2 end     # if (value in x0 == x2) then go to end
+       lw     0 7 one      # x7 = 1
+       beq    7 2 end     # if (input == 1) then return 1
+
+       lw     0 3 starFi   # x3 = 2 (use this reg for check current stat)
+       lw     0 1 one      # x1 = 1 (use for increate with 1)
+       add    2 1 2       # x2 += 1 (use this for stop value)
+       lw     0 5 one     # x5 is index {x3 - 1}
+fibo   beq    3 2 end     # if (current state == input + 1) then go to end
+       add    4 5 7       # result = index[x3-1] + index[x3-2]
+       add    0 5 4       # set x4 to old x5 (fibo step 2)
+       add    0 7 5       # set x4 to old x7 or index is {x3 - 2} (fibo step 3)
+       add    3 1 3       # increate current  by 1
+       beq    0 0 fibo    # do some loop
+
+end    halt               # end of program
+
+one     .fill 1           # user input
+starFi  .fill 2           # use this for intitial stat of fibo
+input   .fill 9           # user input
