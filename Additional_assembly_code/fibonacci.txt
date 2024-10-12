@@ -1,10 +1,10 @@
-       lw     0 2 input    # load x2 = 0 + n and 
+       lw     0 2 input   # load x2 = 0 + n and 
        beq    0 2 end     # if (value in x0 == x2) then go to end
-       lw     0 7 one      # x7 = 1
+       lw     0 7 one     # x7 = 1
        beq    7 2 end     # if (input == 1) then return 1
 
-       lw     0 3 starFi   # x3 = 2 (use this reg for check current stat)
-       lw     0 1 one      # x1 = 1 (use for increate with 1)
+       lw     0 3 starFi  # x3 = 2 (use this reg for check current stat)
+       lw     0 1 one     # x1 = 1 (use for increate with 1)
        add    2 1 2       # x2 += 1 (use this for stop value)
        lw     0 5 one     # x5 is index {x3 - 1}
 fibo   beq    3 2 end     # if (current state == input + 1) then go to end
