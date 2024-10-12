@@ -193,7 +193,7 @@ public class MachineCodeSimulator {
         System.out.printf("\tpc %d\n", state.pc);
         System.out.println("\tmemory:");
         for (int i = 0; i < NUMMEMORY; i++) {
-            if(state.memory[i]==0 ){ //or tate.memory[i]==25165824 || 
+            if(state.memory[i]==0 && state.memory[i+1] == 0){ //or tate.memory[i]==25165824 || 
                 break;
             }
             System.out.printf("\t\tmem[ %d ] %d\n", i, state.memory[i]);
