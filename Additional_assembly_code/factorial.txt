@@ -1,0 +1,31 @@
+   noop
+   noop
+   lw 0 1 input
+   lw 0 6 one
+   lw 0 7 one
+fact lw 0 3 stop
+   beq 3 1 end
+   sw 0 1 0
+   sw 6 7 0
+   lw 0 4 minus
+   add 1 4 1
+mult lw 0 2 0 
+   lw 0 7 zero
+   lw 0 3 1
+   lw 0 4 one # get 0 or 1
+loop beq 4 0 fact
+   nand 2 4 5 # get current bit
+   nand 5 5 5 # not nand
+   beq 5 0 is0 
+   add 3 7 7
+is0  add 4 4 4 # shift right
+   add 3 3 3 # shift left
+   beq 0 0 loop
+
+end halt 
+
+one  .fill 1
+stop .fill 1
+minus .fill -1
+zero .fill 0
+input .fill 10
