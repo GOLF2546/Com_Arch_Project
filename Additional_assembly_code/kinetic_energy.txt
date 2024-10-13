@@ -1,0 +1,55 @@
+        lw      0       5       v       $5 = v
+        lw      0       2       v       $2 = v
+        lw      0       4       one     $4 = ค่าของบิทที่จะเป็น 1 ในตำแหน่งที่ต้องการ
+        lw      0       1       zero    $1 = 0 (prepare register 1 to be the result)
+        lw      0       6       one     $6 = 1
+        lw      0       7       end     $7 = 32768 is a 1000000000000000 in decimal
+loop    beq     4       7       done1    if register 4 value = register 7 value go to done line
+        nand    2       4       3       nand multiplicand with prepare register 4
+        nand    3       3       3       nand กับตัวเองเพื่อให้ได้ผลลัพธ์ของ and เพื่อนำไปใช้ในการ check ค่า แต่ละ bit
+        beq     0       3       skip    ค่าของแต่ละ bit ที่ได้หากได้ 0 ให้กระโดดไปที่ skip line
+        add     5       1       1       บวกค่า multiplicand ไปใน register ผลลัพธ์ เมื่อ bit นั้นเป็น 1
+        add     5       5       5       shift left multiplicand by adding it self
+        add     4       4       4       shift left ค่าของ bit ใน register 4 เพื่อใช้ใน loop รอบถัดไป
+        beq     0       0       loop    if 0 = 0 go to loop line
+skip    add     5       5       5       shift left multiplicand by adding it self
+        add     4       4       4       shift left ค่าของ bit ใน register 4 เพื่อใช้ใน loop รอบถัดไป
+        beq     0       0       loop    if 0 = 0 go to loop line   
+done1   sw      0       1       stack
+        lw      0       5       stack   $5 = v^2
+        lw      0       2       m       $2 = mass
+        lw      0       4       one     $4 = ค่าของบิทที่จะเป็น 1 ในตำแหน่งที่ต้องการ
+        lw      0       1       zero    $1 = 0 (prepare register 1 to be the result)
+        lw      0       6       one     $6 = 1
+        lw      0       7       end     $7 = 32768 is a 1000000000000000 in decimal
+loop2   beq    4       7        sr    if register 4 value = register 7 value go to done line
+        nand    2       4       3       nand multiplicand with prepare register 4
+        nand    3       3       3       nand กับตัวเองเพื่อให้ได้ผลลัพธ์ของ and เพื่อนำไปใช้ในการ check ค่า แต่ละ bit
+        beq     0       3       skip2    ค่าของแต่ละ bit ที่ได้หากได้ 0 ให้กระโดดไปที่ skip line
+        add     5       1       1       บวกค่า multiplicand ไปใน register ผลลัพธ์ เมื่อ bit นั้นเป็น 1
+        add     5       5       5       shift left multiplicand by adding it self
+        add     4       4       4       shift left ค่าของ bit ใน register 4 เพื่อใช้ใน loop รอบถัดไป
+        beq     0       0       loop2   if 0 = 0 go to loop line
+skip2    add     5       5       5       shift left multiplicand by adding it self
+        add     4       4       4       shift left ค่าของ bit ใน register 4 เพื่อใช้ใน loop รอบถัดไป
+        beq     0       0       loop2    if 0 = 0 go to loop line 
+sr      lw      0       2       inter   # use reg 2 as interator
+        lw      0       3       set     # use reg 3 as set interator
+        lw      0   7   zero    # reset reg 7 to 0
+chb     beq     2   0   done2    # go to end when (reach bit 33)
+        nand    1   2   5     # get reverse of current interesting bit
+        nand    5   5   5     # get current interesting bit
+        beq     5   0   is0    # skip add bit when current bit == 0
+        add     3   7   7      # add interesting bit
+is0     add     2   2   2      # shift left interator
+        add     3   3   3      # shift ledt set interator
+        beq     0   0   chb    # do some loop
+done2   halt                            stop program
+set .fill 1
+inter .fill 2
+zero     .fill   0                      zero
+end      .fill   32768                  value of 1000000000000000 in decimal
+one      .fill   1                      1
+v    .fill   9                          velocity
+m    .fill   6                          mass
+stack    .fill   0
