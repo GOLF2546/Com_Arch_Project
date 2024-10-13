@@ -1,0 +1,16 @@
+   lw 0 1 input
+   lw 0 2 inter
+   lw 0 3 set
+chb beq 2 0 end
+   nand 1 2 5
+   nand 5 5 5
+   beq 5 0 is0
+   add 3 7 7
+is0 add 2 2 2
+   add 3 3 3
+   beq 0 0 chb
+end halt
+
+set .fill 1
+inter .fill 2
+input .fill 20
