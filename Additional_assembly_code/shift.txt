@@ -1,14 +1,14 @@
-   lw 0 1 input
-   lw 0 2 inter
-   lw 0 3 set
-chb beq 2 0 end
-   nand 1 2 5
-   nand 5 5 5
-   beq 5 0 is0
-   add 3 7 7
-is0 add 2 2 2
-   add 3 3 3
-   beq 0 0 chb
+    lw 0 1 input   # use 1 as input
+    lw 0 2 inter   # use reg 2 as interator
+    lw 0 3 set     # use reg 3 as set interator
+chb beq 2 0 end    # go to end when (reach bit 33)
+    nand 1 2 5     # get reverse of current interesting bit
+    nand 5 5 5     # get current interesting bit
+    beq 5 0 is0    # skip add bit when current bit == 0
+    add 3 7 7      # add interesting bit
+is0 add 2 2 2      # shift left interator
+    add 3 3 3      # shift ledt set interator
+    beq 0 0 chb    # do some loop
 end halt
 
 set .fill 1
