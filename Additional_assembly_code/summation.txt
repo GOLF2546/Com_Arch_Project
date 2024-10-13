@@ -1,0 +1,32 @@
+mult  lw 0 2 input     # load data from address 0 
+      lw 0 4 one       # x4 = 1 use this to get 0 or 1 at current index
+      add 2 4 3        # input + 1 from summation formular
+loop  beq 4 0 sr       # go back to fact if (value in x4 == 0)
+      nand 2 4 5       # get current bit
+      nand 5 5 5       # not nand
+      beq 5 0 is0_m    # skip next line if current interesting bit is 0
+      add 3 7 7        # from flowchart
+is0_m   add 4 4 4      # shift right (not the real shift right)
+      add 3 3 3        # shift left
+      beq 0 0 loop     # go back to loop
+
+sr  add 0 7 1      # use 1 as input
+    add 0 0 7      # reset x7 to 0
+    lw 0 2 inter   # use reg 2 as interator
+    lw 0 3 set     # use reg 3 as set interator
+chb beq 2 0 end    # go to end when (reach bit 33)
+    nand 1 2 5     # get reverse of current interesting bit
+    nand 5 5 5     # get current interesting bit
+    beq 5 0 is0    # skip add bit when current bit == 0
+    add 3 7 7      # add interesting bit
+is0 add 2 2 2      # shift left interator
+    add 3 3 3      # shift ledt set interator
+    beq 0 0 chb    # do some loop
+
+end halt
+
+inter .fill 2
+set .fill 1
+one .fill 1
+
+input .fill 1000
