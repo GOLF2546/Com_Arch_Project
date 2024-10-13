@@ -1,5 +1,5 @@
-        lw      0       5       width   $5 = multiplicand value
-        lw      0       2       legth   $2 = multiplier value
+        lw      0       5       width   $5 = width value
+        lw      0       2       length   $2 = length value
         lw      0       4       one     $4 = ค่าของบิทที่จะเป็น 1 ในตำแหน่งที่ต้องการ
         lw      0       1       zero    $1 = 0 (prepare register 1 to be the result)
         lw      0       6       one     $6 = 1
@@ -16,8 +16,8 @@ skip    add     5       5       5       shift left multiplicand by adding it sel
         add     4       4       4       shift left ค่าของ bit ใน register 4 เพื่อใช้ใน loop รอบถัดไป
         beq     0       0       loop    if 0 = 0 go to loop line   
 done1   sw      0       1       stack
-        lw      0       5       stack   $5 = multiplicand value
-                lw      0       2       hight   $2 = multiplier value
+        lw      0       5       stack   $5 = product value
+        lw      0       2       hight   $2 = hight value
         lw      0       4       one     $4 = ค่าของบิทที่จะเป็น 1 ในตำแหน่งที่ต้องการ
         lw      0       1       zero    $1 = 0 (prepare register 1 to be the result)
         lw      0       6       one     $6 = 1
@@ -38,6 +38,6 @@ zero     .fill   0                      zero
 end      .fill   32768                  value of 1000000000000000 in decimal
 one      .fill   1                      1
 width    .fill   30                      multiplicand
-legth    .fill   18                      multiplier
+length    .fill   18                      multiplier
 stack    .fill   0
 hight    .fill   12
