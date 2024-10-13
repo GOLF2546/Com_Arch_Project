@@ -39,6 +39,7 @@ public class MachineCodeSimulator {
 
     public void run() { 
         while (true) {
+            printState(this);
            String instruction = fetch();//get instuction from pc (in binary) and pc++
            if (!decodeExecute(instruction)){//decode instruction
                break;// if halt
