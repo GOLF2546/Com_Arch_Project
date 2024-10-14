@@ -1,0 +1,36 @@
+     noop           # current calue of input
+     noop           # current count
+     lw 0 1 input   # get input to x1
+     sw 0 1 0       # save value in x1 to address 0
+     sw 0 5 1       # save value in x5 to address 1
+     lw 0 6 one     # set value in x6 to 1
+loop lw 0 1 0       # load value from address 0 to x1
+     beq 1 6 end    # if (input == 1) then end
+     beq 0 0 sr     # go to sr when (input != 1)
+     beq 0 0 loop   # do some loop
+add1 lw 0 5 1       # load value from address 1 to x5
+     add 5 6 5      # increate couter by 1
+     sw 0 5 1       # save current couter to address 1
+     sw 0 7 0       # save current input to address 0
+     beq 0 0 loop   # do some loop
+
+sr  add 0 0 7      # reset x7 to 0
+    lw 0 1 0       # use 1 as input
+    lw 0 2 inter   # use reg 2 as interator
+    lw 0 3 set     # use reg 3 as set interator
+chb beq 2 0 add1   # go to end when (reach bit 33)
+    nand 1 2 5     # get reverse of current interesting bit
+    nand 5 5 5     # get current interesting bit
+    beq 5 0 is0    # skip add bit when current bit == 0
+    add 3 7 7      # add interesting bit
+is0 add 2 2 2      # shift left interator
+    add 3 3 3      # shift ledt set interator
+    beq 0 0 chb    # do some loop
+
+end lw 0 7 1       # move 5 to 7
+    halt           # end of program
+
+set .fill 1
+one .fill 1
+inter .fill 2
+input .fill 32666

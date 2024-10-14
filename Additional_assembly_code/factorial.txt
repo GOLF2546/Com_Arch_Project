@@ -1,6 +1,7 @@
       noop             # for store data
       noop             # for store data
       lw 0 1 input     # get input to x1
+      beq 0 1 input0   # if (x0 == 0) result = 1
       lw 0 6 one       # x6 = 1
       lw 0 7 one       # x7 = 1
 fact  lw 0 3 stop      # x3 = 1 or base case
@@ -22,10 +23,12 @@ is0   add 4 4 4        # shift right (not the real shift right)
       add 3 3 3        # shift left
       beq 0 0 loop     # go back to loop
 
+input0  lw 0 7 one
+
 end   halt 
 
 one  .fill 1
 stop .fill 1
 minus .fill -1
 zero .fill 0
-input .fill 10
+input .fill 0
